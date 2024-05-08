@@ -58,7 +58,7 @@ async def get_transcript():
         options = LiveOptions(
             model="nova-2",
             punctuate=True,
-            language="en-US",
+            language="en",
             encoding="linear16",
             channels=1,
             sample_rate=16000,

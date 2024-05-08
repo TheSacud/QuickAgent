@@ -12,7 +12,7 @@ from deepgram import Deepgram
 load_dotenv()
 
 # Set your Deepgram API Key and desired voice model
-DG_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+DG_API_KEY = '846fca25bbc658858a63e41fb22e0c2a81988bbc'
 MODEL_NAME = "alpha-stella-en-v2"  # Example model name, change as needed
 
 def is_installed(lib_name: str) -> bool:

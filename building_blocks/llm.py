@@ -1,12 +1,12 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
-import os
+#import os
 
-load_dotenv()
+#load_dotenv()
 
 def batch():
-    chat = ChatGroq(temperature=0, model_name="mixtral-8x7b-32768", groq_api_key=os.getenv("GROQ_API_KEY"))
+    chat = ChatGroq(temperature=0, model_name="llama3-8b-8192", groq_api_key='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')
 
     system = "You are a helpful assistant."
     human = "{text}"
@@ -17,11 +17,11 @@ def batch():
 
 # Streaming
 def streaming():
-    chat = ChatGroq(temperature=0, model_name="llama2-70b-4096",groq_api_key=os.getenv("GROQ_API_KEY"))
+    chat = ChatGroq(temperature=0, model_name="llama3-8b-8192",groq_api_key='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')
     prompt = ChatPromptTemplate.from_messages([("human", "Write a very long poem about {topic}")])
     chain = prompt | chat
     for chunk in chain.stream({"topic": "The Moon"}):
         print(chunk.content, end="", flush=True)
 
 # batch()
-streaming()
+#streaming()
