@@ -130,7 +130,7 @@ class TranscriptCollector:
 
 transcript_collector = TranscriptCollector()
 
-async def get_transcript(callback):
+async def get_transcript(audio_stream,callback):
     transcription_complete = asyncio.Event()  # Event to signal transcription completion
 
     try:
@@ -173,6 +173,22 @@ async def get_transcript(callback):
 
         await dg_connection.start(options)
 
+
+        while True:
+            data = await audio_stream.read(1024)  # Assuming audio_stream is an asyncio.StreamReader
+            if not data:
+                break
+            await dg_connection.send(data)
+
+        await transcription_complete.wait()  # Wait for the transcription to complete
+
+        # Cleanup
+        await dg_connection.finish()
+    
+    except Exception as e:
+        print(f"Could not open socket: {e}")
+        return
+"""
         # Open a microphone stream on the default input device
         microphone = Microphone(dg_connection.send)
         microphone.start()
@@ -184,10 +200,8 @@ async def get_transcript(callback):
 
         # Indicate that we've finished
         await dg_connection.finish()
+"""
 
-    except Exception as e:
-        print(f"Could not open socket: {e}")
-        return
 
 class ConversationManager:
     def __init__(self):
